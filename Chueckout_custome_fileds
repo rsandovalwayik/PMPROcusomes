@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * See the PMPro Register Helper readme for more information and examples: https://www.paidmembershipspro.com/documentation/register-helper-documentation/adding-fields/
+ * Please add the below code to your custom plugin or Code Snippets Plugin by following this guide - https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ */
+
+// Define the fields.
+function my_pmprorh_init() {
+	// don't break if Register Helper is not loaded
+	if ( ! function_exists( 'pmprorh_add_registration_field' ) ) {
+		return false;
+	}
+
+	$fields = array();
+
+	$fields[] = new PMProRH_Field(
+		'pregnant',         // input name, will also be used as meta key
+		'select',           // type of field
+		array(
+			'label'     => '¿Estás embarazada?', // custom field label
+			'profile'   => true,        // show in user profile
+			'required'  => true,    // make this field required
+			'addmember' => true,  // Allows field shows up if using the Add Member Add-On
+			'options'   => array(           // <option> elements for select field
+				''    => 'Selecciona:',     // blank option - cannot be selected if this field is required
+				'yes' => 'Si',
+				'no'  => 'No',
+			),
+		)
+	);
+
+	// add a text field to display if yes is selected
+	$fields[] = new PMProRH_Field(
+		'yes_pregnant', // input name, will also be used as meta key
+		'date',         // type of field
+		array(
+			'depends' => array(
+				array(
+					'id'    => 'pregnant',
+					'value' => 'yes',
+				),
+			),
+			'label'   => '¿Fecha estimada de parto?', // custom field label
+		)
+	);
+
+	$fields[] = new PMProRH_Field(
+		'foundus_through',      // input name, will also be used as meta key
+		'select',               // type of field
+		array(
+			'label'    => '¿Cómo nos encontraste?',
+			'required' => true,        // make this field required
+			'profile'  => true,        // show in user profile
+			'options'  => array(           // <option> elements for select field
+				''               => 'Selecciona',     // blank option - cannot be selected if this field is required
+				'instagram'      => 'Instagram',
+				'facebook'       => 'Facebook',
+				'friend'         => 'Amigo',
+				'recommendation' => 'Otro',
+				),
+		)
+	);
+
+	// add a text field to display if yes is selected
+	$fields[] = new PMProRH_Field(
+		'instagram', // input name, will also be used as meta key
+		'text',         // type of field
+		array(
+			'required' => true,
+			'depends' => array(
+				array(
+					'id'    => 'foundus_through',
+					'value' => 'instagram',
+				),
+			),
+			'label'   => '¿Cuál es tu cuenta de Instagram?', // custom field label
+		)
+	);
+	
+	
+	$fields[] = new PMProRH_Field(
+		'country',
+		'text',
+		array(
+			'label' => 'País',
+			'profile' => true,
+			'required' => true
+		)
+	);
+
+		$fields[] = new PMProRH_Field(
+		'city',
+		'text',
+		array(
+			'label' => 'Ciudad',
+			'profile' => true,
+			'required' => true
+		)
+	);
+	
+		$fields[] = new PMProRH_Field(
+		'state',
+		'text',
+		array(
+			'label' => 'Estado',
+			'profile' => true,
+			'required' => true
+		)
+	);
+	
+	
+	
+		
+
+	// Add the fields into a new checkout_boxes are of the checkout page.
+	foreach ( $fields as $field ) {
+		pmprorh_add_registration_field(
+			'checkout_boxes',   // location on checkout page
+			$field          // PMProRH_Field object
+		);
+
+		// That's it. See the PMPro Register Helper readme for more information and examples.
+	}}
+add_action( 'init', 'my_pmprorh_init', 'my_pmprorh_depends_fields_init' );
