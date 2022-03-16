@@ -1,0 +1,113 @@
+<?php
+
+/**
+ * Redirije a usuarios en su primer login
+ */
+
+/**
+Redirije a usuarios en su primer login // Wayik2021
+ */
+ 
+ function first_time_login_redirect( $redirect_to, $request, $user ) {
+	//check level
+	if ( ! empty( $user ) && ! empty( $user->ID ) && function_exists( 'pmpro_getMembershipLevelForUser' ) ) {
+		$first_login = get_user_meta( $user->ID, 'first_login', true );
+
+		if ( $first_login == 'no' ) {
+			return $redirect_to;
+		}
+
+		$level = pmpro_getMembershipLevelForUser( $user->ID );
+    
+    // Change case 'x': to level ID and $redirect_to URL to redirect the user on first login.
+		switch ( $level->ID ) {
+			case '1':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+
+			case '2':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+
+			
+			case '3':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+			
+			case '4':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+			
+			case '5':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+			
+			case '6':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+			
+			case '7':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+			
+			case '14':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+            case '15':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_embarazo/' );
+				break;
+		
+
+
+		    case '8':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '9':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '10':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '11':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '12':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '13':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '16':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+			case '17':
+				update_user_meta( $user->ID, 'first_login', 'no' );
+				$redirect_to = home_url( '/bienvenida_postparto/' );
+				break;
+
+
+		}
+		
+	}
+	return $redirect_to;
+}
+add_filter( 'login_redirect', 'first_time_login_redirect', 15, 3 );
+
+
+
